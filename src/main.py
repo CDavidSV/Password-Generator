@@ -1,13 +1,32 @@
 import time
 import os
+import secrets
+import math
 import random
-from PasswordGenerator import PasswordGenerator
 
 # Allows the user to modify the password.
 # Input: PasswordGenerator object.
 # Output: none.
 def modifyPassword(passwordObj):
-    return     
+    return 
+
+# Using entropy to calculate password strength
+def calculateStrength(password):
+    chars = 95 # Total ammount of printable ASCII characters excluding the space.
+    length = len(password)
+    N = chars ** length
+    entropy = math.log2(N)
+
+    if entropy < 28:
+        return 'Very Weak'
+    elif entropy < 30:
+        return 'Weak'
+    elif entropy < 60:
+        return 'Reasonable'
+    elif entropy < 128:
+        return 'Very Strong'
+    else:
+        return 'Extremely strong'   
 
 # Generates a new password based on input values given by the user.
 # Input: none.
@@ -54,13 +73,32 @@ def generateNewPassword():
 
         if (falseParameters == 4):
             selectedParameters[3] = True
+
+        # Arrays of characters, numbers and symbols.
+        uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        lowercaseLetters = "abcdefghijklmnopqrstuvwxyz"
+        numbers = "0123456789"
+        specialCharacters = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
+
+        options = []
+        if uppercase:
+            options.append(uppercaseLetters)
+        if lowercase: 
+            options.append(lowercaseLetters)
+        if numbers:
+            options.append(numbers)
+        if symbols:
+            options.append(specialCharacters)
         
-        generatedPassword = PasswordGenerator(passwordLength, selectedParameters[0], selectedParameters[1], selectedParameters[2], selectedParameters[3])
+        password = ''
+        for i in range(passwordLength):
+            characters = secrets.choice(options)
+            password += secrets.choice(characters)
 
         repeatOptions = True
         while(repeatOptions):
-            print(f"Generated password: {generatedPassword}")
-            print(f"Strength: {generatedPassword.getStrength()}\n")
+            print(f"Generated password: {password}")
+            print(f"Strength: {calculateStrength(password)}\n")
             
             print("1. Modify Password.\n2. Generate a new password.\n3. Exit")
             option = input("Select an option: ")
@@ -81,7 +119,10 @@ def generateNewPassword():
 # Input: Users password.
 # output: none.
 def testPasswordStrength():
-    return
+    inputPassword = input('Enter your password: ')
+
+    password = PasswordGenerator.setPassword(inputPassword)
+    return password.getStrength()
 
 if __name__ == "__main__":
     repeat = True
