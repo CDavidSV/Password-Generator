@@ -3,4 +3,4 @@
 Simple password generator made in python.
 
 ---
-![Showcase](https://user-images.githubusercontent.com/88672259/201795786-0790e145-4c61-43af-8c41-b72996fc6543.jpg)
+![Screenshot 2023-03-27 004116](https://user-images.githubusercontent.com/88672259/227860735-82e495b2-8c02-480a-9e30-915aa7abb87e.jpg)
