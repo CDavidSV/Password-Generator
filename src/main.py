@@ -40,7 +40,7 @@ def generate_new_password():
     repeat = True
     while(repeat):
         # Ask for the password length.
-        password_length = input("Enter password length between 8 and 50: ")
+        password_length = input("Enter password length between 8 and 100: ")
 
         # Verify type.
         try:
@@ -51,7 +51,7 @@ def generate_new_password():
             time.sleep(0.5)
             continue
 
-        if password_length < 8 or password_length > 50:
+        if password_length < 8 or password_length > 100:
             print(f'Password length must be between 8 and 50 characters. Entered: {password_length}')
             print(" ")
             time.sleep(0.5)
